@@ -1,0 +1,68 @@
+.app-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 15px;
+    box-sizing: border-box;
+    background-color: #232629;
+    box-shadow: 0 2px 5px 0 #232629;
+    z-index: 10;
+}
+
+.app-header__title {
+    font: 600 24px/32px sans-serif;
+    color: #ffffff;
+    margin-left: 50px;
+}
+
+.app-header__table-btn {
+    position: absolute;
+    right: 50px;
+    bottom: -35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 65px;
+    height: 65px;
+    background-color: #f5f5f5;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 1px 15px -5px gray;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.app-header__table-btn:hover {
+    cursor: pointer;
+    box-shadow: 0 4px 15px -5px gray;
+}
+
+.app-header__btn-icon {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    transition: transform 0.3s, fill 0.3s;
+    visibility: hidden;
+    transform: scaleY(-1);
+}
+
+.app-header__btn-icon_list {
+    fill: #2e3a59;
+}
+
+.app-header__table-btn:hover .app-header__btn-icon_list {
+    fill: #192038;
+}
+
+.app-header__btn-icon_close {
+    fill: #f14040;
+}
+
+.app-header__table-btn:hover .app-header__btn-icon_close {
+    fill: #fe5959;
+}
+
+.app-header__btn-icon_visible {
+    visibility: visible;
+    transform: scaleY(1);
+}

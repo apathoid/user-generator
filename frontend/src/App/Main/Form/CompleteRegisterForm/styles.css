@@ -1,0 +1,42 @@
+.register-form-step__form-header-substrate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin: -15px;
+    margin-bottom: 15px;
+    background-color: #00B887;
+    border-radius: 5px 5px 0 0;
+}
+
+.register-form-step__form-header-icon {
+    width: 60px;
+    height: 60px;
+    fill: #ffffff;
+}
+
+.register-form-step__form-header {
+    color: #ffffff;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.register-form-step__form-fields {
+    flex-flow: row wrap;
+    gap: 25px 20px;
+    max-width: 500px;
+}
+
+.register-form-step__form-field {
+    flex: 1 0 200px;
+    color: #192038;
+}
+
+.register-form-step__form-actions {
+    justify-content: center;
+    gap: 0 20px;
+}
+
+.register-form-step__form-action-btn {
+    width: 240px;
+}

@@ -1,0 +1,22 @@
+.form-action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: 400 15px/18px sans-serif;
+    color: #2e3a59;
+    padding: 7px 15px;
+    padding-bottom: 9px;
+    background-color: #ffffff;
+    border: 1px solid #2e3a59;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.form-action-button:hover {
+    background-color: #fafafa;
+    color: #192038;
+}
+
+.form-action-button:active {
+    transform: translateY(2px);
+}

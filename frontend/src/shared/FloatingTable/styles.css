@@ -1,0 +1,44 @@
+.floating-table-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 2px 2px 10px 0 gray
+}
+
+.floating-table-title {
+    font: 600 19px/21px sans-serif;
+    color: #192038;
+    margin-bottom: 30px;
+}
+
+.floating-table-container {
+    width: fit-content;
+    overflow-y: auto;
+}
+
+.floating-table {
+    border-collapse: collapse;
+}
+
+.floating-table th, td {
+    white-space: nowrap;
+    padding: 10px 20px;
+    border: 1px solid #192038;
+}
+
+.floating-table th {
+    text-align: center;
+    font: 500 15px/17px sans-serif;
+}
+
+.floating-table td {
+    text-align: left;
+    font: 400 14px/17px sans-serif;
+}
+
+.floating-table td.floating-table__cell_empty {
+    text-align: center;
+}
