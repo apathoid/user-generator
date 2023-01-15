@@ -27,7 +27,7 @@ export default function ConferenceSubjectsForm() {
     const onSubmitForm = () => {
         const newUserData = getSanitizedUserData(userData);
 
-        api.post('/participants', JSON.stringify(newUserData))
+        api.post('/api/participants', JSON.stringify(newUserData))
             .then(res => res.json())
             .then(user => {
                 setUserData(user);

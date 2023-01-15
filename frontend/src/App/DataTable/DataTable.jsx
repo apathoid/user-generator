@@ -19,7 +19,7 @@ export default function DataTable() {
 
     useEffect(() => {
         if (showDataTable) {
-            api.get('/participants').then(response => {
+            api.get('/api/participants').then(response => {
                 response.json().then(result => {
                     const participantsData = result.map(participant => {
                         return headerData.map(cell => {
