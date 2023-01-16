@@ -2,6 +2,7 @@
 
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 const isProduction = process.env.NODE_ENV == 'production';
 
@@ -9,7 +10,7 @@ const isProduction = process.env.NODE_ENV == 'production';
 const config = {
     entry: './src/index.jsx',
     output: {
-        path: path.resolve(__dirname, 'public')
+        path: path.resolve(__dirname, 'dist')
     },
     devServer: {
         open: true,
@@ -17,8 +18,11 @@ const config = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './public/template.html'
+            template: './public/index.html'
         }),
+        new webpack.DefinePlugin({
+            'process.env.FRONTEND_API_URL': JSON.stringify(process.env.FRONTEND_API_URL)
+        })
     ],
     module: {
         rules: [

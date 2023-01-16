@@ -5,7 +5,7 @@ const defaultOptions = {
 };
 
 export class Api {
-    root = 'http://localhost:3000';
+    root = process.env.FRONTEND_API_URL || 'http://localhost:3000';
 
     get(path) {
         return fetch(`${this.root}${path}`, defaultOptions);
