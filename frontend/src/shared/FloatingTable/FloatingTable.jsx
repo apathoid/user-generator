@@ -4,7 +4,7 @@ import './styles.css';
 
 
 export default function FloatingTable(props) {
-    const { title, header, data } = props;
+    const { title, header, data, isLoading } = props;
 
     return (
         <div className="floating-table-card">
@@ -23,18 +23,31 @@ export default function FloatingTable(props) {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map((row, rowIdx) => (
-                            <tr key={rowIdx}>
-                                {row.map(cell => (
-                                    <td
-                                        key={cell.value}
-                                        className={cell.name === "-" ? "floating-table__cell_empty" : ""}
-                                    >
-                                        {cell.name}
-                                    </td>
-                                ))}
+                        {isLoading ?
+                            <tr>
+                                <td
+                                    colSpan={header.length}
+                                    style={{
+                                        textAlign: 'center'
+                                    }}
+                                >
+                                    Загрузка...
+                                </td>
                             </tr>
-                        ))}
+                            :
+                            data.map((row, rowIdx) => (
+                                <tr key={rowIdx}>
+                                    {row.map(cell => (
+                                        <td
+                                            key={cell.value}
+                                            className={cell.name === "-" ? "floating-table__cell_empty" : ""}
+                                        >
+                                            {cell.name}
+                                        </td>
+                                    ))}
+                                </tr>
+                            ))
+                        }
                     </tbody>
                 </table>
             </div>

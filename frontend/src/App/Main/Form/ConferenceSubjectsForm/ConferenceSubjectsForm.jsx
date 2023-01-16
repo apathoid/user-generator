@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import './styles.css';
 
@@ -20,11 +20,15 @@ export default function ConferenceSubjectsForm() {
 
     const { userData, setUserData, prevStep, nextStep } = useFormContext();
 
+    const [isRequestBeingProcessed, setIsRequestBeingProcessed] = useState(false);
+
     const onPrevStep = () => {
         prevStep();
     };
 
     const onSubmitForm = () => {
+        setIsRequestBeingProcessed(true);
+
         const newUserData = getSanitizedUserData(userData);
 
         api.post('/api/participants', JSON.stringify(newUserData))
@@ -32,7 +36,9 @@ export default function ConferenceSubjectsForm() {
             .then(user => {
                 setUserData(user);
                 nextStep();
-            });
+                setIsRequestBeingProcessed(false);
+            })
+            .catch(() => setIsRequestBeingProcessed(false));
     };
 
     return (
@@ -48,7 +54,8 @@ export default function ConferenceSubjectsForm() {
                         Object.entries(conferences).map(([key, value]) => ({ name: value.name, value: key }))
                     }
                     selectValue={value => {
-                        const newUserData = { ...userData };
+                        const newUserData = structuredClone(userData);
+
                         newUserData.conference = value;
                         newUserData.report = {
                             active: false,
@@ -72,14 +79,14 @@ export default function ConferenceSubjectsForm() {
                         onChange={e => {
                             const subject = e.target.value;
 
-                            const newUserData = { ...userData };
+                            const newUserData = structuredClone(userData);
                             newUserData.report.subject = subject;
 
                             setUserData(newUserData);
                         }}
                         isActive={userData.report.active}
                         setIsActive={active => {
-                            const newUserData = { ...userData };
+                            const newUserData = structuredClone(userData);
                             newUserData.report.active = active;
 
                             setUserData(newUserData);
@@ -98,6 +105,7 @@ export default function ConferenceSubjectsForm() {
                 <FormActionButton
                     type="button"
                     onMouseDown={onSubmitForm}
+                    isLoading={isRequestBeingProcessed}
                 >
                     отправить
                 </FormActionButton>

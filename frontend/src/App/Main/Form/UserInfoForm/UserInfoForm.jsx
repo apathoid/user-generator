@@ -47,12 +47,11 @@ export default function UserInfoForm() {
         }
 
         newFieldsStates[fieldName] = {
-            isValid: (
-                fieldScheme.validate
-                    ? fieldScheme.validate(fieldValue)
-                    : validateField(fieldScheme, fieldValue)
-            )
+            isValid: validateField(fieldScheme, fieldValue)
         };
+        newFieldsStates[fieldName].isValid && fieldScheme.validate && (
+            newFieldsStates[fieldName].isValid = fieldScheme.validate(fieldValue)
+        );
 
         setFieldsStates(newFieldsStates);
     };
@@ -64,7 +63,8 @@ export default function UserInfoForm() {
         fieldsSchemes.forEach(scheme => {
             const fieldValue = userData[scheme.name];
 
-            const isValid = scheme.validate ? scheme.validate(fieldValue) : validateField(scheme, fieldValue);
+            let isValid = validateField(scheme, fieldValue);
+            isValid && scheme.validate && (isValid = scheme.validate(fieldValue));
 
             if (!isValid) {
                 newFieldsStates[scheme.name].isValid = false;
@@ -122,28 +122,28 @@ function getFieldsSchemes() {
         {
             name: 'name',
             placeholder: 'Имя*',
-            pattern: '[А-яёЁ]+$',
+            pattern: '^[А-яёЁ]+$',
             required: true,
             errorMessage: 'Поле должно состоять из русских букв'
         },
         {
             name: 'surname',
             placeholder: 'Фамилия*',
-            pattern: '[А-яёЁ]+$',
+            pattern: '^[А-яёЁ]+$',
             required: true,
             errorMessage: 'Поле должно состоять из русских букв'
         },
         {
             name: 'patronymic',
             placeholder: 'Отчество*',
-            pattern: '[А-яёЁ]+$',
+            pattern: '^[А-яёЁ]+$',
             required: true,
             errorMessage: 'Поле должно состоять из русских букв'
         },
         {
             name: 'birthday',
             placeholder: 'Дата рождения',
-            pattern: '\\d{2}\\.\\d{2}\\.\\d{4}',
+            pattern: '^\\d{2}\\.\\d{2}\\.\\d{4}$',
             validate: value => value ? validateDate(value) : true,
             required: false,
             errorMessage: 'Дата рождения в формате дд.мм.гггг'

@@ -37,7 +37,7 @@ export function validateDate(value) {
 
 
 export function getSanitizedUserData(userData) {
-    const newUserData = { ...userData };
+    const newUserData = structuredClone(userData);
 
     Object.entries(newUserData).forEach(([key, value]) => {
         if (
@@ -56,8 +56,10 @@ export function getSanitizedUserData(userData) {
 
         if (key === 'report') {
             if (!value.active || value.active && !value.subject) {
-                newUserData[key].active = false;
-                newUserData[key].subject = '';
+                newUserData[key] = {
+                    active: false,
+                    subject: ''
+                };
             }
         }
     });

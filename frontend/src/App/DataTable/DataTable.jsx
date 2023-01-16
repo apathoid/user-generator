@@ -16,33 +16,39 @@ export default function DataTable() {
     const { showDataTable, setShowDataTable } = useAppContext();
 
     const [data, setData] = useState([]);
+    const [isDataLoading, setIsDataLoading] = useState(false);
 
     useEffect(() => {
         if (showDataTable) {
+            setIsDataLoading(true);
+
             api.get('/api/participants').then(response => {
-                response.json().then(result => {
-                    const participantsData = result.map(participant => {
-                        return headerData.map(cell => {
-                            const participantData = {
-                                value: cell.value
-                            };
+                response.json()
+                    .then(result => {
+                        const participantsData = result.map(participant => {
+                            return headerData.map(cell => {
+                                const participantData = {
+                                    value: cell.value
+                                };
 
-                            const data = participant[cell.value];
+                                const data = participant[cell.value];
 
-                            if (cell.value === 'report') {
-                                participantData.name = data.active ? data.subject : '-';
-                            } else if (cell.value === 'conference') {
-                                participantData.name = conferences[data].name;
-                            } else {
-                                participantData.name = data;
-                            }
+                                if (cell.value === 'report') {
+                                    participantData.name = data.active ? data.subject : '-';
+                                } else if (cell.value === 'conference') {
+                                    participantData.name = conferences[data].name;
+                                } else {
+                                    participantData.name = data;
+                                }
 
-                            return participantData;
+                                return participantData;
+                            });
                         });
-                    });
 
-                    setData(participantsData);
-                });
+                        setIsDataLoading(false);
+                        setData(participantsData);
+                    })
+                    .catch(() => setIsDataLoading(true));
             });
         }
     }, [showDataTable]);
@@ -85,6 +91,7 @@ export default function DataTable() {
                 title="Список участников"
                 header={headerData}
                 data={data}
+                isLoading={isDataLoading}
             />
         </div>,
         document.body
